@@ -6,6 +6,7 @@ using UnityEngine.SceneManagement;
 
 public class GameManager
 {
+    static public List<Scene> scenes = new List<Scene>();
     public static void Initialize()
     {
         SceneManager.sceneLoaded += OnSceneLoaded;
@@ -14,5 +15,7 @@ public class GameManager
     private static void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
         Debug.Log("シーンをロードした: " + scene.name);
+
+        scenes.Add(scene);
     }
 }

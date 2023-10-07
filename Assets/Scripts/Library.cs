@@ -1,4 +1,4 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System.IO;
@@ -15,7 +15,7 @@ public class NewBehaviourScript : MonoBehaviour
 
     //private List<string> Wordlist = new List<string>();
 
-    //List‚Æ‚¢‚¤”z—ñ‚ğì¬•” ƒAƒhƒŒƒXw’è
+    //Listã¨ã„ã†é…åˆ—ã‚’ä½œæˆï¼†ç®±ã‚¢ãƒ‰ãƒ¬ã‚¹æŒ‡å®š
     private JsonArray Wordlist = new JsonArray();
 
     private System.Random r1 = new System.Random();
@@ -23,27 +23,27 @@ public class NewBehaviourScript : MonoBehaviour
 
     void Start()
     {
-        //Ÿ‚Ì” ‚És‚­•û–@‚ğ’²‚×‚é
+        //æ¬¡ã®ç®±ã«è¡Œãæ–¹æ³•ã‚’èª¿ã¹ã‚‹
 
-        //jsonƒtƒ@ƒCƒ‹‚ÌˆÊ’u(ƒpƒX)‚ğ“ü‚ê‚é
+        //jsonãƒ•ã‚¡ã‚¤ãƒ«ã®ä½ç½®(ãƒ‘ã‚¹)ã‚’å…¥ã‚Œã‚‹
         string dataPath = "Assets\\Dictionary.json";
 
-        // ”O‚Ì‚½‚ßƒtƒ@ƒCƒ‹‚Ì‘¶İƒ`ƒFƒbƒN
+        // å¿µã®ãŸã‚ãƒ•ã‚¡ã‚¤ãƒ«ã®å­˜åœ¨ãƒã‚§ãƒƒã‚¯
         if (!File.Exists(dataPath)) return;
 
-        // JSONƒf[ƒ^‚Æ‚µ‚Äƒf[ƒ^‚ğ“Ç‚İ‚Ş
+        // JSONãƒ‡ãƒ¼ã‚¿ã¨ã—ã¦ãƒ‡ãƒ¼ã‚¿ã‚’èª­ã¿è¾¼ã‚€
         string file = File.ReadAllText(dataPath);
 
-        // JSONŒ`®‚©‚çƒIƒuƒWƒFƒNƒg‚ÉƒfƒVƒŠƒAƒ‰ƒCƒY
+        // JSONå½¢å¼ã‹ã‚‰ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã«ãƒ‡ã‚·ãƒªã‚¢ãƒ©ã‚¤ã‚º
         Wordlist = JsonUtility.FromJson<JsonArray>(file);
     }
 
-    //ƒ‰ƒ“ƒ_ƒ€‚È•¶š—ñ‚ğo—Í‚·‚éŠÖ”
+    //ãƒ©ãƒ³ãƒ€ãƒ ãªæ–‡å­—åˆ—ã‚’å‡ºåŠ›ã™ã‚‹é–¢æ•°
     public string RandomWord()
     {
         string word = Wordlist.words[r1.Next(0, Wordlist.words.Length)];
 
-        Debug.Log("¡‰ñ‚Ìƒ[ƒhF" + word);
+        Debug.Log("ä»Šå›ã®ãƒ¯ãƒ¼ãƒ‰ï¼š" + word);
 
         return word;
     }
