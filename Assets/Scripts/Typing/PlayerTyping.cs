@@ -9,8 +9,6 @@ using UnityEngine.UI;
 /// </summary>
 public class PlayerTyping : MonoBehaviour
 {
-    [SerializeField] TMPro.TMP_Text text;
-
     [SerializeField] TypingWordBase word;
 
     public int Score { get; private set; } = 0;
@@ -19,6 +17,8 @@ public class PlayerTyping : MonoBehaviour
     public event System.Action OnPlayerMissTypedCallBack;
 
     Queue<char> inputKeysQueue = new(0);
+
+    bool IsPlayerStopped = false;
     IEnumerator Start()
     {
         StartCoroutine(KeyMatchingLoop());
@@ -31,40 +31,12 @@ public class PlayerTyping : MonoBehaviour
     /// <returns></returns>
     IEnumerator PlayerInputLoop()
     {
-
-
         while (true)
         {
             yield return null;
             yield return WaitForKeyBoardInput(); //キーボード入力を待つ
 
-            //var key = ReadKeyBoardInput();   //キーボード入力を読み取り
-
             EnQueueKeyBoardInput();
-
-            /*
-            if (text.text == null || text.text.Length==0)
-            {
-                continue;
-            }
-            
-            if (key == text.text.ToLower()[text.firstVisibleCharacter])
-            {
-                text.text = text.text.Remove(text.firstVisibleCharacter, 1);
-
-                PlayerCorrectlyTyped();
-            }
-            else
-            {
-                PlayerMissTyped();
-            }
-            
-
-            static char ReadKeyBoardInput()
-            {
-                return Input.inputString[0];
-            }//InputStringをcharに変換
-            */
 
             void EnQueueKeyBoardInput()
             {
@@ -84,9 +56,14 @@ public class PlayerTyping : MonoBehaviour
         {
             yield return new WaitUntil(() => inputKeysQueue.Count != 0);
 
-            while(inputKeysQueue.Count > 0)
+            while (!IsPlayerStopped && inputKeysQueue.Count > 0)
             {
                 yield return null;
+
+                if (IsPlayerStopped)
+                {
+                    break;
+                }
 
                 var key = inputKeysQueue.Dequeue();
 
@@ -112,7 +89,7 @@ public class PlayerTyping : MonoBehaviour
     /// <returns></returns>
     IEnumerator WaitForKeyBoardInput()
     {
-        yield return new WaitUntil(() => Input.anyKeyDown & Input.inputString != null & Input.inputString.Length > 0);
+        yield return new WaitUntil(() => !IsPlayerStopped & Input.anyKeyDown & Input.inputString != null & Input.inputString.Length > 0);
     }
 
     /// <summary>
@@ -136,5 +113,21 @@ public class PlayerTyping : MonoBehaviour
     {
         OnPlayerMissTypedCallBack?.Invoke();
         //print("miss");
+    }
+
+    public void SetTypingWord(TypingWordBase word)
+    {
+        this.word = word;
+    }
+
+    public void StopTypingInput()
+    {
+        IsPlayerStopped = true;
+        inputKeysQueue.Clear();
+    }
+
+    public void ReStartTypingInput()
+    {
+        IsPlayerStopped = false;
     }
 }

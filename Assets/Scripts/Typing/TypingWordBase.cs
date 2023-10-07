@@ -5,6 +5,7 @@ using UnityEngine;
 public abstract class TypingWordBase : MonoBehaviour
 {
     public System.Action OnDefeated;
+    public abstract void SetWord(string word);
     public abstract int GetRemainingCharacterCount();
     public abstract int GetAllCharacterCount();
     public abstract string GetWord();
