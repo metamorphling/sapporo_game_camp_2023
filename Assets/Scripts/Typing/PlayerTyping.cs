@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 
 /// <summary>
-/// ƒvƒŒƒCƒ„[‚Ìƒ^ƒCƒsƒ“ƒO‚Ì“ü—Í‚ğó‚¯•t‚¯‚é
+/// ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã®ã‚¿ã‚¤ãƒ”ãƒ³ã‚°ã®å…¥åŠ›ã‚’å—ã‘ä»˜ã‘ã‚‹
 /// </summary>
 public class PlayerTyping : MonoBehaviour
 {
@@ -17,13 +17,13 @@ public class PlayerTyping : MonoBehaviour
         print(text.text[0]);
     }
 
-   @IEnumerator PlayerLoop()
+    Enumerator PlayerLoop()
     {
         while (true)
         {
             yield return new WaitUntil(() => Input.anyKeyDown);
 
-            var key = Input.inputString;    //ƒL[ƒ{[ƒh“ü—Í‚ğ“Ç‚İæ‚è 
+            var key = Input.inputString;    //ã‚­ãƒ¼ãƒœãƒ¼ãƒ‰å…¥åŠ›ã‚’èª­ã¿å–ã‚Š 
         }
     }
 }
