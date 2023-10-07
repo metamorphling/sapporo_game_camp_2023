@@ -7,6 +7,7 @@ public class DefaultTypingWord : TypingWordBase
     [SerializeField] TMPro.TMP_Text text;
 
     string defaultText;
+    int textCount;
 
     private void Start()
     {
@@ -17,9 +18,11 @@ public class DefaultTypingWord : TypingWordBase
 
         defaultText = text.text;    
     }
+
+    public event System.Action<float> OnTimerChangedCallBack;
     public override int GetAllCharacterCount()
     {
-        return text.maxVisibleCharacters;
+        return defaultText.Length;
     }
 
     public override char GetNextCharacter()
@@ -33,7 +36,11 @@ public class DefaultTypingWord : TypingWordBase
 
     public override int GetRemainingCharacterCount()
     {
-        throw new System.NotImplementedException();
+        if (text == null || text.text == null || text.text.Length == 0)
+        {
+            return -1;
+        }
+        return text.maxVisibleCharacters;
     }
 
     public override string GetWord()
@@ -54,6 +61,35 @@ public class DefaultTypingWord : TypingWordBase
         if (isMatched)
         {
             text.text = text.text.Remove(text.firstVisibleCharacter, 1);
+            textCount--;
+
+            if (textCount == 0)
+            {
+                OnDefeated?.Invoke();
+            }
+        }
+    }
+
+    public override void SetWord(string word)
+    {
+        text.text = word;
+        textCount = word.Length;
+    }
+
+    public void WordSpawn()
+    {
+        text.maxVisibleCharacters = 0;
+
+        StartCoroutine(WordSpawnAnimation());
+
+        IEnumerator WordSpawnAnimation()
+        {
+            for(int i=0;i<text.text.Length;i++)
+            {
+                text.maxVisibleCharacters++;
+
+                yield return new WaitForSeconds(0.05f);
+            }
         }
     }
 }
