@@ -6,15 +6,13 @@ using UnityEngine.SceneManagement;
 
 public class BugWatcher : MonoBehaviour
 {
-    public BugTyphoon bugTyphoon;
-    public BugClick bugClick;
+    public List<Transform>Bugs = new List<Transform>();
 
-    public event System.Action OnTyphoonShown;
-    public event System.Action OnTyphoonHide;
-    public event System.Action OnClickShown;
-    public event System.Action OnClickHide;
+    public List<string> names = new List<string>();
 
     public bool IsReady { get; private set; } = false;
+
+    public int bugShowingCount = 0;
 
     IEnumerator Start()
     {
@@ -41,14 +39,9 @@ public class BugWatcher : MonoBehaviour
 
                     var ch = obj.transform.GetChild(i);
 
-                    if (ch.GetComponent<BugClick>() != null)
+                    if (names.Contains(ch.name))
                     {
-                        bugClick=ch.GetComponent<BugClick>();   
-                    }
-
-                    if (ch.GetComponent<BugTyphoon>() != null)
-                    {
-                        bugTyphoon = ch.GetComponent<BugTyphoon>();
+                        Bugs.Add(ch);
                     }
                 }
             }
@@ -66,57 +59,32 @@ public class BugWatcher : MonoBehaviour
 
     IEnumerator Watching()
     {
-        var ty_active = bugTyphoon.gameObject.activeSelf;
-        var tc_active=bugClick.gameObject.activeSelf;
+        Dictionary<Transform, bool> tmp_activeSelf = new();
 
-        if (ty_active)
+        foreach(var obj in Bugs)
         {
-            OnTyphoonShown?.Invoke();
-        }
-        else
-        {
-            OnTyphoonHide?.Invoke();
-        }
 
-        if (tc_active)
-        {
-            OnClickShown?.Invoke();
-        }
-        else
-        {
-            OnClickHide?.Invoke();
+            if (obj.gameObject.activeSelf)
+            {
+                bugShowingCount++;
+            }
+
+            tmp_activeSelf.Add(obj, obj.gameObject.activeSelf);
         }
 
         while (true)
         {
             yield return null;
 
-            if(ty_active& !bugTyphoon.gameObject.activeSelf)
+            foreach(var obj in Bugs)
             {
-                OnTyphoonHide?.Invoke();
-                print("t_h");
-            }
+                if (tmp_activeSelf[obj] != obj.gameObject.activeSelf)
+                {
+                    bugShowingCount += obj.gameObject.activeSelf ? 1 : -1;
+                }
 
-            if(!ty_active& bugTyphoon.gameObject.activeSelf)
-            {
-                OnTyphoonShown?.Invoke();
-                print("t_s");
+                tmp_activeSelf[obj] = obj.gameObject.activeSelf;
             }
-
-            if (tc_active& !bugClick.gameObject.activeSelf)
-            {
-                OnClickHide?.Invoke();
-                print("c_h");
-            }
-
-            if (!tc_active & bugClick.gameObject.activeSelf)
-            {
-                OnClickShown?.Invoke();
-                print("c_s");
-            }
-
-            ty_active = bugTyphoon.gameObject.activeSelf;
-            tc_active = bugClick.gameObject.activeSelf;
         }
     }
 }

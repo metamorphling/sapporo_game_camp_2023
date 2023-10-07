@@ -27,44 +27,33 @@ public class TypingSceneController : MonoBehaviour
             Destroy(gameObject);
         }
 
-        yield return new WaitUntil(() => bugWatcher.IsReady);
-
-        bugWatcher.OnClickShown += () =>
-        {
-            if (bugShowingCount == 0)
-            {
-                StopPlayerTyping();
-            }
-            bugShowingCount++;
-        };
-        bugWatcher.OnTyphoonShown += () =>
-        {
-            if (bugShowingCount == 0)
-            {
-                StopPlayerTyping();
-            }
-            bugShowingCount++;
-        };
-
-        bugWatcher.OnClickHide += () =>
-        {
-            bugShowingCount--;
-            if (bugShowingCount == 0)
-            {
-                ReStartPlayerTyping();
-            }
-        };
-        bugWatcher.OnTyphoonHide += () =>
-        {
-            bugShowingCount--;
-            if (bugShowingCount == 0)
-            {
-                ReStartPlayerTyping();
-            }
-        };
+        StartCoroutine(Bug());
 
         yield return null;
         yield return GameLoop_Pattern1();
+
+        IEnumerator Bug()
+        {
+            int tmp = bugWatcher.bugShowingCount;
+            while(true)
+            {
+                yield return null;
+
+                if (bugWatcher.bugShowingCount == 0 & tmp > 0)
+                {
+                    ReStartPlayerTyping();
+                    //word1.Restart();
+                }
+
+                if (bugWatcher.bugShowingCount > 0 & tmp == 0)
+                {
+                    StopPlayerTyping();
+                    //word1.Stop();
+                }
+
+                tmp = bugWatcher.bugShowingCount;
+            }
+        }
     }
 
     IEnumerator GameLoop_Pattern1()
@@ -74,13 +63,15 @@ public class TypingSceneController : MonoBehaviour
         bool timeOver = false;
         word1.OnDefeated += () => defeated = true;
         word1.OnTimeOverCallBack += () => timeOver = true;
-        word1.OnTimerChangedCallBack += time => timer.text = string.Format("{0:F0}",time);
+        word1.OnTimerChangedCallBack += time => timer.text = string.Format("{0:F00}",time);
         playerTyping.SetTypingWord(word1);
 
         while (true)
         {
-            word1.SetWord(library.RandomWord());
-            word1.SetTimer(10);
+            var word = library.RandomWord();
+
+            word1.SetWord(word);
+            word1.SetTimer(GetTimer(word));
 
             word1.WordSpawn();
 
@@ -95,6 +86,11 @@ public class TypingSceneController : MonoBehaviour
             defeated = false;
             timeOver = false;
         }
+    }
+
+    float GetTimer(string word)
+    {
+        return word.Length * 0.75f + 5;
     }
 
     /// <summary>
