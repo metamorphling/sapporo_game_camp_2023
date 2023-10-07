@@ -10,6 +10,8 @@ public class TypingSceneController : MonoBehaviour
     [SerializeField] NewBehaviourScript library;
     [SerializeField] DefaultTypingWord word1;
 
+    [SerializeField] TMPro.TMP_Text timer;
+
     IEnumerator Start()
     {
         yield return null;
@@ -20,17 +22,29 @@ public class TypingSceneController : MonoBehaviour
     {
         //var word1 = wordFactory.CreateDefaultTypingWord(library.RandomWord(), Vector3.zero);
         bool defeated = false;
+        bool timeOver = false;
+        word1.OnDefeated += () => defeated = true;
+        word1.OnTimeOverCallBack += () => timeOver = true;
+        word1.OnTimerChangedCallBack += time => timer.text = string.Format("{0:F0}",time);
+        playerTyping.SetTypingWord(word1);
 
         while (true)
         {
             word1.SetWord(library.RandomWord());
-            playerTyping.SetTypingWord(word1);
-            word1.WordSpawn();
-            word1.OnDefeated += () => defeated = true;
+            word1.SetTimer(2);
 
-            yield return new WaitUntil(() => defeated);
+            word1.WordSpawn();
+
+            yield return new WaitUntil(() => defeated|timeOver);
+
+            if (timeOver)
+            {
+                //ƒ_ƒ[ƒWˆ—
+                print("TimeOver");
+            }
 
             defeated = false;
+            timeOver = false;
         }
     }
 
