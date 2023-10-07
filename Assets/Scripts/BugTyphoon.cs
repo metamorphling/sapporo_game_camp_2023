@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.UIElements;
+using UnityEngine.UI;
 
 public class BugTyphoon : Bug
 {
@@ -29,6 +29,8 @@ public class BugTyphoon : Bug
 
     void Update()
     {
+        if (health <= 0)
+            return;
         if (Drag)
         {
             Rotate();
@@ -90,7 +92,7 @@ public class BugTyphoon : Bug
             health--;
             if (health <= 0)
             {
-                this.gameObject.SetActive(false);
+                StartCoroutine(BugLoose());
             }
             text.text = needLeft ? "Left " + health.ToString() : "Right " + health.ToString();
         }
@@ -105,6 +107,9 @@ public class BugTyphoon : Bug
 
     override public void Initialize(int health)
     {
+        image = GetComponent<Image>();
+        rect = GetComponent<RectTransform>();
+        image.sprite = normal;
         this.transform.localRotation = Quaternion.Euler(0, 0, 0);
         rotation = this.transform.rotation;
 
@@ -112,5 +117,10 @@ public class BugTyphoon : Bug
         needLeft = Random.Range(0, 2) == 1 ? true : false;
         text.text = needLeft ? "Left " + health.ToString() : "Right " + health.ToString();
         this.gameObject.SetActive(true);
+        r1 = Random.Range(-800, 800);
+        r2 = Random.Range(0, 350);
+        posX = r1;
+        posY = r2;
+        rect.localPosition = new Vector3(posX, posY, 0);
     }
 }

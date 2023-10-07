@@ -7,11 +7,13 @@ public class BugClick : Bug
 {
     public void OnClickBug1()
     {
+        if (health <= 0)
+            return;
         health--;
         text.text = health.ToString();
         if (health <= 0)
         {
-            this.gameObject.SetActive(false);
+            StartCoroutine(BugLoose());
         }
     }
 }
