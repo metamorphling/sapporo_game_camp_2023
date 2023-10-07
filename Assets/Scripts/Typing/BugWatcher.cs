@@ -10,9 +10,13 @@ public class BugWatcher : MonoBehaviour
 
     public List<string> names = new List<string>();
 
+    public Dictionary<Transform,Bug> _Bugs=new ();
+
     public bool IsReady { get; private set; } = false;
 
     public int bugShowingCount = 0;
+
+    public event System.Action<int> OnDefeatBug;
 
     IEnumerator Start()
     {
@@ -42,6 +46,7 @@ public class BugWatcher : MonoBehaviour
                     if (names.Contains(ch.name))
                     {
                         Bugs.Add(ch);
+                        _Bugs.Add(ch,ch.GetComponent<Bug>());
                     }
                 }
             }
@@ -81,6 +86,10 @@ public class BugWatcher : MonoBehaviour
                 if (tmp_activeSelf[obj] != obj.gameObject.activeSelf)
                 {
                     bugShowingCount += obj.gameObject.activeSelf ? 1 : -1;
+                    if (!obj.gameObject.activeSelf)
+                    {
+                        OnDefeatBug?.Invoke(_Bugs[obj].score);
+                    }
                 }
 
                 tmp_activeSelf[obj] = obj.gameObject.activeSelf;

@@ -10,7 +10,10 @@ public class TypingSceneController : MonoBehaviour
     public DefaultTypingWord word1;
 
     [SerializeField] TMPro.TMP_Text timer;
+    [SerializeField] TMPro.TMP_Text scoreUI;
     [SerializeField] BugWatcher bugWatcher;
+
+    int _score = 0;
 
     public TypingSceneController Main {  get; private set; }
 
@@ -28,6 +31,12 @@ public class TypingSceneController : MonoBehaviour
         }
 
         StartCoroutine(Bug());
+        bugWatcher.OnDefeatBug += (score) =>
+        {
+            _score += score;
+
+            scoreUI.text = _score.ToString();
+        };
 
         yield return null;
         yield return GameLoop_Pattern1();
