@@ -14,6 +14,8 @@ public class TypingSceneController : MonoBehaviour
 
     public TypingSceneController Main {  get; private set; }
 
+    int bugShowingCount = 0;
+
     IEnumerator Start()
     {
         if(Main == null)
@@ -24,6 +26,42 @@ public class TypingSceneController : MonoBehaviour
         {
             Destroy(gameObject);
         }
+
+        yield return new WaitUntil(() => bugWatcher.IsReady);
+
+        bugWatcher.OnClickShown += () =>
+        {
+            if (bugShowingCount == 0)
+            {
+                StopPlayerTyping();
+            }
+            bugShowingCount++;
+        };
+        bugWatcher.OnTyphoonShown += () =>
+        {
+            if (bugShowingCount == 0)
+            {
+                StopPlayerTyping();
+            }
+            bugShowingCount++;
+        };
+
+        bugWatcher.OnClickHide += () =>
+        {
+            bugShowingCount--;
+            if (bugShowingCount == 0)
+            {
+                ReStartPlayerTyping();
+            }
+        };
+        bugWatcher.OnTyphoonHide += () =>
+        {
+            bugShowingCount--;
+            if (bugShowingCount == 0)
+            {
+                ReStartPlayerTyping();
+            }
+        };
 
         yield return null;
         yield return GameLoop_Pattern1();

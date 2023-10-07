@@ -14,6 +14,8 @@ public class BugWatcher : MonoBehaviour
     public event System.Action OnClickShown;
     public event System.Action OnClickHide;
 
+    public bool IsReady { get; private set; } = false;
+
     IEnumerator Start()
     {
         Scene? gimmicScene = null;
@@ -51,6 +53,13 @@ public class BugWatcher : MonoBehaviour
                 }
             }
         }
+
+        
+
+        IsReady = true;
+
+        yield return null;
+        yield return null;
 
         yield return Watching();
     }
