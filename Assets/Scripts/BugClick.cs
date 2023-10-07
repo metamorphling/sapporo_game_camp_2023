@@ -5,16 +5,6 @@ using UnityEngine.UI;
 
 public class BugClick : Bug
 {
-    void Start()
-    {
-
-    }
-
-    void Update()
-    {
-
-    }
-
     public void OnClickBug1()
     {
         health--;
