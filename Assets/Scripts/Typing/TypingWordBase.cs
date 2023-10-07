@@ -11,4 +11,7 @@ public abstract class TypingWordBase : MonoBehaviour
     public abstract string GetWord();
     public abstract char GetNextCharacter();
     public abstract void SendTypingCharacter(char character, out bool isMatched);
+
+    public abstract void Stop();
+    public abstract void Restart();
 }

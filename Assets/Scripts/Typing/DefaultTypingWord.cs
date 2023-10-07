@@ -6,8 +6,11 @@ public class DefaultTypingWord : TypingWordBase
 {
     [SerializeField] TMPro.TMP_Text text;
 
-    string defaultText;
+    string defaultText = "";
     int textCount;
+
+    IEnumerator timerCoroutine;
+    float timer = 10;
 
     private void Start()
     {
@@ -15,11 +18,10 @@ public class DefaultTypingWord : TypingWordBase
         {
             Destroy(gameObject);
         }
-
-        defaultText = text.text;    
     }
 
     public event System.Action<float> OnTimerChangedCallBack;
+    public event System.Action OnTimeOverCallBack;
     public override int GetAllCharacterCount()
     {
         return defaultText.Length;
@@ -74,6 +76,7 @@ public class DefaultTypingWord : TypingWordBase
     {
         text.text = word;
         textCount = word.Length;
+        defaultText = word;
     }
 
     public void WordSpawn()
@@ -90,6 +93,47 @@ public class DefaultTypingWord : TypingWordBase
 
                 yield return new WaitForSeconds(0.05f);
             }
+        }
+
+        timerCoroutine = Timer();
+        StartCoroutine(timerCoroutine);
+    }
+
+    IEnumerator Timer()
+    {
+        while (timer>0)
+        {
+            yield return null;
+
+            timer -= Time.deltaTime;
+
+            OnTimerChangedCallBack?.Invoke(timer);
+        }
+
+        OnTimerChangedCallBack?.Invoke(timer);
+        OnTimeOverCallBack?.Invoke();
+
+        yield break;
+    }
+
+    public void SetTimer(float timer)
+    {
+        this.timer = timer;
+    }
+
+    public override void Stop()
+    {
+        if (timerCoroutine != null)
+        {
+            StopCoroutine(timerCoroutine);
+        }
+    }
+
+    public override void Restart()
+    {
+        if (timerCoroutine != null)
+        {
+            StartCoroutine(timerCoroutine);
         }
     }
 }

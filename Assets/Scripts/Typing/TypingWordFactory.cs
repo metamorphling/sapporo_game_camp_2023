@@ -6,10 +6,6 @@ public class TypingWordFactory : MonoBehaviour
 {
     [SerializeField] Transform TypingWordPool;
 
-    private void Start()
-    {
-        CreateDefaultTypingWord("Azarashi", Vector3.right);
-    }
     public DefaultTypingWord CreateDefaultTypingWord(string word,Vector3 position)
     {
         if (string.IsNullOrEmpty(word)) { return null; }

@@ -1,0 +1,116 @@
+using System.Collections;
+using System.Collections.Generic;
+using Unity.VisualScripting;
+using UnityEngine;
+using UnityEngine.UIElements;
+
+public class BugTyphoon : Bug
+{
+    Vector2 pos;   //マウスクリック時の位置
+    Quaternion rotation;//クリックしたときのターゲットの角度
+
+    Vector2 vecA;       //ターゲット中心からのposへのベクトル
+    Vector2 vecB;       //ターゲットの中心から現マウス位置へのベクトル
+
+    float angle;        //vecAとvecBのなす角度
+    float prevAngle;        //vecAとvecBのなす角度
+    float angleDiff;
+    Vector3 AxB;        //vecAとvecBの外積
+    Vector3 prevAxB;        //vecAとvecBの外積
+
+    public RectTransform canvasRect;
+    bool Drag;          //ドラッグ中のフラグ
+    bool needLeft;
+
+    void Start()
+    {
+
+    }
+
+    void Update()
+    {
+        if (Drag)
+        {
+            Rotate();
+        }
+        else
+        {
+            pos = WorldPos();//マウス位置をワールド座標で取得
+        }
+    }
+
+    public void OnClickBag2()   //マウスをクリックしたときの処理
+    {
+        //クリック時のマウスの初期位置とターゲットの現在の角度を取得
+        if (Input.GetKeyDown(KeyCode.Mouse0))
+        {
+            rotation = this.transform.rotation;
+            Drag = true;
+        }
+    }
+
+    void Rotate()   //ドラッグ中の動き
+    {
+        //ドラッグが解除されたらフラグをOFF
+        if (Input.GetKeyUp(KeyCode.Mouse0))
+        {
+            Drag = false;
+            return;
+        }
+        Vector3 trPos = this.transform.position;
+
+        //マウスの初期位置のベクトルを求める
+        vecA = (pos - (Vector2)trPos).normalized;
+
+        //現マウス位置のベクトルを求める
+        vecB = (WorldPos() - trPos).normalized;
+
+        //マウスの初期位置と現マウス位置から角度と外積を求める
+        angle = Vector2.Angle(vecA, vecB);  //角度を計算
+        AxB = Vector3.Cross(vecA, vecB);    //外積を計算
+
+        bool isLeft = ((AxB.z > 0) && (prevAngle < angle)) || ((AxB.z < 0) && (prevAngle > angle));
+        if (isLeft != needLeft) 
+            return;
+
+        //外積のz成分の正負で回転方向を決める
+        if (AxB.z > 0)
+        {
+            //初期位置との掛け算で相対的に回転させる
+            this.transform.localRotation = rotation * Quaternion.Euler(0, 0, angle);
+        }
+        else
+        {
+            this.transform.localRotation = rotation * Quaternion.Euler(0, 0, -angle);
+        }
+        angleDiff += Mathf.Abs(angle - prevAngle);
+        if (angleDiff > 360)
+        {
+            angleDiff = 0;
+            health--;
+            if (health <= 0)
+            {
+                this.gameObject.SetActive(false);
+            }
+            text.text = needLeft ? "Left " + health.ToString() : "Right " + health.ToString();
+        }
+        prevAngle = angle;
+        prevAxB = AxB;
+    }
+
+    Vector3 WorldPos()
+    {
+        return RectTransformUtility.WorldToScreenPoint(Camera.main, Camera.main.ScreenToWorldPoint(Input.mousePosition));
+    }
+
+    override public void Initialize(int health)
+    {
+        this.transform.localRotation = Quaternion.Euler(0, 0, 0);
+        rotation = this.transform.rotation;
+
+        this.health = health;
+        needLeft = Random.Range(0, 2) == 1 ? true : false;
+        text.text = needLeft ? "Left " + health.ToString() : "Right " + health.ToString();
+        this.gameObject.SetActive(true);
+    }
+}
