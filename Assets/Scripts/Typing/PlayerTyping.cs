@@ -8,22 +8,37 @@ using UnityEngine.UI;
 /// </summary>
 public class PlayerTyping : MonoBehaviour
 {
-    //TMPro.TMP_Text text;
-    TextMesh text;
-    
+    [SerializeField] TMPro.TMP_Text text;
+
+    public int Score {  get; private set; }
+
     void Start()
     {
         StartCoroutine(PlayerLoop());
-        print(text.text[0]);
+        print(text.text.ToLower()[text.firstVisibleCharacter]);
     }
 
     IEnumerator PlayerLoop()
     {
         while (true)
         {
-            yield return new WaitUntil(() => Input.anyKeyDown);
+            yield return new WaitUntil(() => Input.anyKeyDown & Input.inputString.Length > 0);
 
-            var key = Input.inputString;    //キーボード入力を読み取り 
+            var key = Input.inputString;    //キーボード入力を読み取り
+
+            print(key.Length);
+
+            if (key[0] == text.text.ToLower()[text.firstVisibleCharacter])
+            {
+                text.text = text.text.Remove(text.firstVisibleCharacter, 1);
+            }
+            else
+            {
+                print("miss");
+                //Score--;
+            }
+
+            yield return null;
         }
     }
 }
