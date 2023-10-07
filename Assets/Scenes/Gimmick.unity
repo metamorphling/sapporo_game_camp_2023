@@ -136,7 +136,7 @@ GameObject:
   - component: {fileID: 82827971}
   - component: {fileID: 82827970}
   - component: {fileID: 82827969}
-  - component: {fileID: 82827968}
+  - component: {fileID: 82827973}
   m_Layer: 5
   m_Name: 'HighBugClick '
   m_TagString: Untagged
@@ -161,25 +161,9 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 1071.4412, y: 467.3808}
+  m_AnchoredPosition: {x: 680, y: 261}
   m_SizeDelta: {x: 300, y: 300}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &82827968
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 82827966}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2217efd6c0299ad46aa9e186d95d35bc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  lose: {fileID: 21300000, guid: a3283ff04a2ac4441a8279b56494bbb5, type: 3}
-  attack: {fileID: 21300000, guid: 55b79f67ce9968b489ac009618b9327c, type: 3}
-  normal: {fileID: 21300000, guid: 6267c8169d15f5e45aa42a701ae65aa0, type: 3}
-  text: {fileID: 356249045}
 --- !u!114 &82827969
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -197,9 +181,9 @@ MonoBehaviour:
     callback:
       m_PersistentCalls:
         m_Calls:
-        - m_Target: {fileID: 82827968}
+        - m_Target: {fileID: 82827966}
           m_TargetAssemblyTypeName: BugClick, Assembly-CSharp
-          m_MethodName: OnClickBug1
+          m_MethodName: 
           m_Mode: 1
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
@@ -267,14 +251,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 0.67547166, b: 0.67547166, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 0b8b645cd9ab6544ead57dd622cab17c, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 6267c8169d15f5e45aa42a701ae65aa0, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -292,6 +276,24 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 82827966}
   m_CullTransparentMesh: 1
+--- !u!114 &82827973
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 82827966}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6e85a26a813ca9d4a93a1dc9c5a9d8a5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damage: 20
+  score: 150
+  lose: {fileID: 21300000, guid: ced823d9c43136c4a950d1a0a42ab3e3, type: 3}
+  attack: {fileID: 21300000, guid: 189e16b83d0e5044d942dd0bc19ab678, type: 3}
+  normal: {fileID: 21300000, guid: 0b8b645cd9ab6544ead57dd622cab17c, type: 3}
+  text: {fileID: 356249045}
 --- !u!1 &356249043
 GameObject:
   m_ObjectHideFlags: 0
@@ -351,8 +353,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: New Text
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 2e498d1c8094910479dc3e1b768306a4, type: 2}
+  m_sharedMaterial: {fileID: 2180264, guid: 2e498d1c8094910479dc3e1b768306a4, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -464,7 +466,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 800, y: 300}
+  m_AnchoredPosition: {x: -530, y: 266}
   m_SizeDelta: {x: 300, y: 300}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &561500830
@@ -480,7 +482,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 0.67547166, b: 0.67547166, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -517,9 +519,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2217efd6c0299ad46aa9e186d95d35bc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  lose: {fileID: 21300000, guid: ced823d9c43136c4a950d1a0a42ab3e3, type: 3}
-  attack: {fileID: 21300000, guid: 189e16b83d0e5044d942dd0bc19ab678, type: 3}
-  normal: {fileID: 21300000, guid: 0b8b645cd9ab6544ead57dd622cab17c, type: 3}
+  damage: 10
+  score: 100
+  lose: {fileID: 21300000, guid: a3283ff04a2ac4441a8279b56494bbb5, type: 3}
+  attack: {fileID: 21300000, guid: 55b79f67ce9968b489ac009618b9327c, type: 3}
+  normal: {fileID: 21300000, guid: 6267c8169d15f5e45aa42a701ae65aa0, type: 3}
   text: {fileID: 1475604453}
 --- !u!114 &561500833
 MonoBehaviour:
@@ -926,8 +930,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: New Text
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 2e498d1c8094910479dc3e1b768306a4, type: 2}
+  m_sharedMaterial: {fileID: 2180264, guid: 2e498d1c8094910479dc3e1b768306a4, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -1052,8 +1056,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: New Text
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 2e498d1c8094910479dc3e1b768306a4, type: 2}
+  m_sharedMaterial: {fileID: 2180264, guid: 2e498d1c8094910479dc3e1b768306a4, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -1180,6 +1184,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8027aa3ad10c76f4aa0f8d887e885d36, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  damage: 50
+  score: 400
   lose: {fileID: 21300000, guid: a51c9560020226c4d95ef8f913331b57, type: 3}
   attack: {fileID: 21300000, guid: 4cd6a8d9b1bccd54f96d2e4b1b469169, type: 3}
   normal: {fileID: 21300000, guid: 29b0a7050acef2e408ae0903abf678ef, type: 3}
@@ -1243,14 +1249,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 0.67547166, b: 0.67547166, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 6267c8169d15f5e45aa42a701ae65aa0, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 29b0a7050acef2e408ae0903abf678ef, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1

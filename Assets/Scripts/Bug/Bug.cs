@@ -5,6 +5,8 @@ using UnityEngine.UI;
 
 public class Bug : MonoBehaviour
 {
+    public int damage;
+    public int score;
     [SerializeField] protected Sprite lose;
     [SerializeField] protected Sprite attack;
     [SerializeField] protected Sprite normal;
