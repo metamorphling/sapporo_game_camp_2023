@@ -1,19 +1,30 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using UnityEditor.Rendering.LookDev;
 using UnityEngine;
 
 public class TypingSceneController : MonoBehaviour
 {
-    [SerializeField] PlayerTyping playerTyping;
-    //[SerializeField] TypingWordFactory wordFactory;
+    public PlayerTyping playerTyping;
     [SerializeField] NewBehaviourScript library;
-    [SerializeField] DefaultTypingWord word1;
+    public DefaultTypingWord word1;
 
     [SerializeField] TMPro.TMP_Text timer;
+    [SerializeField] BugWatcher bugWatcher;
+
+    public TypingSceneController Main {  get; private set; }
 
     IEnumerator Start()
     {
+        if(Main == null)
+        {
+            Main = this;
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+
         yield return null;
         yield return GameLoop_Pattern1();
     }
@@ -31,7 +42,7 @@ public class TypingSceneController : MonoBehaviour
         while (true)
         {
             word1.SetWord(library.RandomWord());
-            word1.SetTimer(2);
+            word1.SetTimer(10);
 
             word1.WordSpawn();
 
@@ -39,7 +50,7 @@ public class TypingSceneController : MonoBehaviour
 
             if (timeOver)
             {
-                //ƒ_ƒ[ƒWˆ—
+                //ãƒ€ãƒ¡ãƒ¼ã‚¸å‡¦ç†
                 print("TimeOver");
             }
 
@@ -49,7 +60,7 @@ public class TypingSceneController : MonoBehaviour
     }
 
     /// <summary>
-    /// ƒvƒŒƒCƒ„[‚Ìƒ^ƒCƒsƒ“ƒO‚ğ~‚ß‚é
+    /// ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã®ã‚¿ã‚¤ãƒ”ãƒ³ã‚°ã‚’æ­¢ã‚ã‚‹
     /// </summary>
     public void StopPlayerTyping()
     {
@@ -57,10 +68,15 @@ public class TypingSceneController : MonoBehaviour
     }
 
     /// <summary>
-    /// ƒvƒŒƒCƒ„[‚Ìƒ^ƒCƒsƒ“ƒO‚ğƒŠƒXƒ^[ƒg‚·‚é
+    /// ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã®ã‚¿ã‚¤ãƒ”ãƒ³ã‚°ã‚’ãƒªã‚¹ã‚¿ãƒ¼ãƒˆã™ã‚‹
     /// </summary>
     public void ReStartPlayerTyping()
     {
         playerTyping.ReStartTypingInput();
+    }
+
+    public string GetRamdamWord()
+    {
+        return library.RandomWord();    
     }
 }
