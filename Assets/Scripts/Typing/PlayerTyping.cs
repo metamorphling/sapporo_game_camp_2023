@@ -17,7 +17,7 @@ public class PlayerTyping : MonoBehaviour
         print(text.text[0]);
     }
 
-    Enumerator PlayerLoop()
+    IEnumerator PlayerLoop()
     {
         while (true)
         {
