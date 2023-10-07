@@ -19,7 +19,16 @@ public class EnemyTimer : MonoBehaviour
         {
             int b = bugs.Length;
             int r = Random.Range(0, b);
-            bugs[r].Initialize(5); 
+            if (r == 2)
+            {
+                bugs[r].Initialize(10);
+                Debug.Log(r);
+            }
+            else
+            {
+                bugs[r].Initialize(5);
+                Debug.Log(r);
+            }
             bug1Time = 0;
         }
         //ÉoÉOÇ™èoÇƒÇ»Ç©Ç¡ÇΩÇÁ
