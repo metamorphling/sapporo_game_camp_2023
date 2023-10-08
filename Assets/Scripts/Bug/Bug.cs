@@ -70,6 +70,8 @@ public class Bug : MonoBehaviour
     protected void Attack()
     {
         Debug.Log("Attack! " + name  + " Damage! " + damage);
+        if (TypingSceneController.Main)
+            TypingSceneController.Main.HP -= damage;
         StartCoroutine(BugAttack());
     }
 
