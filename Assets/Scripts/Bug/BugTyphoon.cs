@@ -90,7 +90,10 @@ public class BugTyphoon : Bug
         {
             angleDiff = 0;
             health--;
-            AS.PlayOneShot(damageSE);
+            if (health >= 1)
+            {
+                AS.PlayOneShot(damageSE);
+            }
             if (health <= 0)
             {
                 StartCoroutine(BugLoose());
@@ -119,6 +122,7 @@ public class BugTyphoon : Bug
         needLeft = Random.Range(0, 2) == 1 ? true : false;
         text.text = needLeft ? "Left " + health.ToString() : "Right " + health.ToString();
         this.gameObject.SetActive(true);
+        AS.PlayOneShot(spawnSE);
         r1 = Random.Range(-800, 800);
         r2 = Random.Range(0, 350);
         posX = r1;

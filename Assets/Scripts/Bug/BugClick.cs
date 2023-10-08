@@ -9,8 +9,11 @@ public class BugClick : Bug
     {
         if (health <= 0)
             return;
-        health--; 
-        AS.PlayOneShot(damageSE);
+        health--;
+        if (health >= 1)
+        {
+            AS.PlayOneShot(damageSE);
+        }
         text.text = health.ToString();
         if (health <= 0)
         {
