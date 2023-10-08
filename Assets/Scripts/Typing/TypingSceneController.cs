@@ -17,9 +17,12 @@ public class TypingSceneController : MonoBehaviour
 
     public TypingSceneController Main {  get; private set; }
 
-    public GameLevel GameLevel { get; set; } = GameLevel.Normal;
+    public GameLevel GameLevel = GameLevel.Normal;
+    [SerializeField] bool useGlobalGameLevel = true;
 
     int bugShowingCount = 0;
+
+    public static GameLevel GlobalGameLevel {  get; set; }=GameLevel.Normal;
 
     IEnumerator Start()
     {
@@ -107,7 +110,7 @@ public class TypingSceneController : MonoBehaviour
 
         float mul_wordLength = 1;
 
-        switch (GameLevel)
+        switch (useGlobalGameLevel ? GlobalGameLevel : GameLevel)
         {
             case GameLevel.Easy:
                 timer = 7;
