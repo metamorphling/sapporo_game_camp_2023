@@ -12,6 +12,7 @@ public class TypingSceneController : MonoBehaviour
     [SerializeField] TMPro.TMP_Text timer;
     [SerializeField] TMPro.TMP_Text scoreUI;
     [SerializeField]TMPro.TMP_Text hpUI;
+    [SerializeField] Animator hpAnimator;
     [SerializeField] BugWatcher bugWatcher;
 
     [SerializeField] AudioSource audioSource;
@@ -22,12 +23,14 @@ public class TypingSceneController : MonoBehaviour
 
     int _score = 0;
 
+    int maxHP = 100;
+
     public int Score
     {
         get { return _score; }
         set { 
             _score = value;
-            scoreUI.text = "Score:" + _score.ToString();
+            scoreUI.text =_score.ToString();
         }
     }
 
@@ -39,7 +42,8 @@ public class TypingSceneController : MonoBehaviour
         set
         {
             _hp = value;
-            hpUI.text = "HP:" + _hp.ToString();
+            hpUI.text = _hp.ToString();
+            hpAnimator.SetFloat("HP", _hp / (float)maxHP);
 
             if (_hp <= 0)
             {
@@ -74,8 +78,10 @@ public class TypingSceneController : MonoBehaviour
             Score += score;
         };
 
-        hpUI.text = "HP:" + _hp.ToString();
-        scoreUI.text = "Score:" + _score.ToString();
+        maxHP = HP;
+
+        hpUI.text = _hp.ToString();
+        scoreUI.text = _score.ToString();
 
         yield return null;
         yield return GameLoop_Pattern1();
