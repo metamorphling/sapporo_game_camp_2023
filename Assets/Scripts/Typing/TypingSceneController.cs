@@ -42,7 +42,7 @@ public class TypingSceneController : MonoBehaviour
         }
     }
 
-    public TypingSceneController Main {  get; private set; }
+    public static TypingSceneController Main {  get; private set; }
 
     public GameLevel GameLevel = GameLevel.Normal;
     [SerializeField] bool useGlobalGameLevel = true;
