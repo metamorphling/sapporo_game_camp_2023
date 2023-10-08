@@ -90,6 +90,7 @@ public class BugTyphoon : Bug
         {
             angleDiff = 0;
             health--;
+            AS.PlayOneShot(damageSE);
             if (health <= 0)
             {
                 StartCoroutine(BugLoose());
@@ -107,6 +108,7 @@ public class BugTyphoon : Bug
 
     public override void Initialize(int health)
     {
+        AS = GetComponent<AudioSource>();
         image = GetComponent<Image>();
         rect = GetComponent<RectTransform>();
         image.sprite = normal;

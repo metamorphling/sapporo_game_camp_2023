@@ -5,12 +5,18 @@ using UnityEngine.UI;
 
 public class Bug : MonoBehaviour
 {
-    public int damage;
-    public int score;
+    [SerializeField] protected AudioClip attackSE;
+    [SerializeField] protected AudioClip spawnSE;
+    [SerializeField] protected AudioClip breakSE;
+    [SerializeField] protected AudioClip killSE;
+    [SerializeField] protected AudioClip damageSE;
     [SerializeField] protected Sprite lose;
     [SerializeField] protected Sprite attack;
     [SerializeField] protected Sprite normal;
     [SerializeField] protected TMPro.TMP_Text text;
+    protected AudioSource AS;
+    public int damage;
+    public int score;
     protected Image image;
     protected RectTransform rect;
     protected float posX;
@@ -24,23 +30,24 @@ public class Bug : MonoBehaviour
     protected IEnumerator BugLoose()
     {
         isDead = true;
-        if (health <= 0)
-        {
-            health = 0;
-            image.sprite = lose;
-        }
+        health = 0;
+        image.sprite = lose;
+        AS.PlayOneShot(killSE);
         yield return new WaitForSeconds(1);
+        AS.PlayOneShot(breakSE);
         this.gameObject.SetActive(false);
     }
 
     public virtual void Initialize(int health)
     {
+        AS = GetComponent<AudioSource>();
         image = GetComponent<Image>();
         rect = GetComponent<RectTransform>();
         image.sprite = normal;
         text.text = health.ToString();
         this.health = health;
         this.gameObject.SetActive(true);
+        AS.PlayOneShot(spawnSE);
         r1 = Random.Range(-800, 800);
         r2 = Random.Range(0, 350);
         posX = r1;
