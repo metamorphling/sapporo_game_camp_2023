@@ -815,7 +815,7 @@ MonoBehaviour:
   text: {fileID: 266767020}
   speedText: {fileID: 1784093727}
   startHealth: 10
-  canvasRect: {fileID: 0}
+  canvasRect: {fileID: 1332832864}
 --- !u!1 &356249043
 GameObject:
   m_ObjectHideFlags: 0
@@ -1412,6 +1412,7 @@ MonoBehaviour:
   - {fileID: 1764069561}
   - {fileID: 82827973}
   - {fileID: 340664429}
+  - {fileID: 1780828037}
 --- !u!1 &1235634273
 GameObject:
   m_ObjectHideFlags: 0
@@ -1517,7 +1518,7 @@ MonoBehaviour:
   m_text: New Text
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 79e5999bc0f52d14d838c228c4f29549, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 2e498d1c8094910479dc3e1b768306a4, type: 2}
+  m_sharedMaterial: {fileID: 5466209267670733423, guid: 79e5999bc0f52d14d838c228c4f29549, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -2527,6 +2528,7 @@ GameObject:
   - component: {fileID: 1780828034}
   - component: {fileID: 1780828033}
   - component: {fileID: 1780828032}
+  - component: {fileID: 1780828037}
   m_Layer: 5
   m_Name: BossBug
   m_TagString: Untagged
@@ -2668,9 +2670,9 @@ MonoBehaviour:
     callback:
       m_PersistentCalls:
         m_Calls:
-        - m_Target: {fileID: 0}
-          m_TargetAssemblyTypeName: HighBugTyphoon, Assembly-CSharp
-          m_MethodName: OnClickBag4
+        - m_Target: {fileID: 1780828037}
+          m_TargetAssemblyTypeName: BossBug, Assembly-CSharp
+          m_MethodName: OnClickBug5
           m_Mode: 1
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
@@ -2763,6 +2765,34 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1780828030}
   m_CullTransparentMesh: 1
+--- !u!114 &1780828037
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1780828030}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3b9e7cf2b928ab846b9a182badd5986a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  attackSE: {fileID: 8300000, guid: 0a9a1c70afdae9b4d88af95c33c9666d, type: 3}
+  spawnSE: {fileID: 8300000, guid: 964e5908297ff1f4693b3ca28749c33a, type: 3}
+  breakSE: {fileID: 8300000, guid: 2df867995280275408131d60e44856da, type: 3}
+  killSE: {fileID: 8300000, guid: d22dcdab561075f4fa09e6904094f225, type: 3}
+  damageSE: {fileID: 8300000, guid: 71430b19e945028448d97398ddf0ae0a, type: 3}
+  health: 0
+  damage: 40
+  attackSpeed: 12
+  score: 500
+  isDead: 1
+  lose: {fileID: 21300000, guid: be23ae39ac383ed4e9f9642f34bbf1b3, type: 3}
+  attack: {fileID: 21300000, guid: a2a341679d42ade41859351876442821, type: 3}
+  normal: {fileID: 21300000, guid: 2fb1df16eae2f53409e7523cfcafcf43, type: 3}
+  text: {fileID: 1840908032}
+  speedText: {fileID: 1327757269}
+  startHealth: 30
 --- !u!1 &1784093725
 GameObject:
   m_ObjectHideFlags: 0
@@ -2957,7 +2987,7 @@ MonoBehaviour:
   m_text: New Text
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 79e5999bc0f52d14d838c228c4f29549, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 2e498d1c8094910479dc3e1b768306a4, type: 2}
+  m_sharedMaterial: {fileID: 5466209267670733423, guid: 79e5999bc0f52d14d838c228c4f29549, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []

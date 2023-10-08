@@ -4,13 +4,19 @@ using UnityEngine;
 
 public class BossBug : Bug
 {
-    void Start()
+    public void OnClickBug5()
     {
-        
-    }
+        if(health <= 0) { return; }
 
-    void Update()
-    {
-        
+        health--;
+        if (health >= 1)
+        {
+            AS.PlayOneShot(damageSE);
+        }
+        text.text = health.ToString();
+        if (health <= 0)
+        {
+            StartCoroutine(BugLoose());
+        }
     }
 }
