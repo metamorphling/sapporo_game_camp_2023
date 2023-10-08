@@ -148,6 +148,7 @@ public class BugTyphoon : Bug
         AttackTimer = attackSpeed;
         isDead = false;
         transform.localScale = new Vector3(1, 1, 1);
+        transform.rotation = Quaternion.Euler(0, 0, 0);
         transform.DOShakePosition(AttackTimer, 20, 30);
     }
 }

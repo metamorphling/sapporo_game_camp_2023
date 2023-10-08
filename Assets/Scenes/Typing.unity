@@ -754,7 +754,7 @@ MonoBehaviour:
   - 'HighBugClick '
   - HighBugTyphoon
   - BugBoss
-  - HighBugBoss
+  - HighBossBug
   bugShowingCount: 0
 --- !u!4 &779115950
 Transform:

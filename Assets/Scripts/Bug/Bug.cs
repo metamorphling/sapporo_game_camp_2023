@@ -55,6 +55,7 @@ public class Bug : MonoBehaviour
             {
                 TypingSceneController.Main.Score += score;
             }
+            transform.localScale = new Vector3(1, 1, 1);
         });
     }
 
@@ -108,7 +109,7 @@ public class Bug : MonoBehaviour
         image = GetComponent<Image>();
         rect = GetComponent<RectTransform>();
         image.sprite = normal;
-        text.text = health.ToString();
+        text.text = "HP: " + health.ToString();
         this.health = health;
         this.gameObject.SetActive(true);
         AS.PlayOneShot(spawnSE);
