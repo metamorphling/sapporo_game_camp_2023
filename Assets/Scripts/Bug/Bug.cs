@@ -10,6 +10,7 @@ public class Bug : MonoBehaviour
     [SerializeField] protected AudioClip breakSE;
     [SerializeField] protected AudioClip killSE;
     [SerializeField] protected AudioClip damageSE;
+    [HideInInspector]
     public int health = 0;
     public int damage;
     public int attackSpeed;
@@ -29,6 +30,8 @@ public class Bug : MonoBehaviour
     protected float r1;
     protected float r2;
     protected float AttackTimer;
+    [SerializeField]
+    protected int startHealth;
 
     protected IEnumerator BugLoose()
     {
@@ -72,6 +75,8 @@ public class Bug : MonoBehaviour
 
     public virtual void Initialize(int health)
     {
+        if (health == 0)
+            health = startHealth;
         AS = GetComponent<AudioSource>();
         image = GetComponent<Image>();
         rect = GetComponent<RectTransform>();

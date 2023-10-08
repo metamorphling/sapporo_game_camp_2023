@@ -485,6 +485,9 @@ MonoBehaviour:
   - BugClick
   - BugTyphoon
   - 'HighBugClick '
+  - HighBugTyphoon
+  - BugBoss
+  - HighBugBoss
   bugShowingCount: 0
 --- !u!4 &779115950
 Transform:

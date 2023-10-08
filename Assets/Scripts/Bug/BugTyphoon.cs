@@ -125,6 +125,8 @@ public class BugTyphoon : Bug
 
     public override void Initialize(int health)
     {
+        if (health == 0)
+            health = startHealth;
         AS = GetComponent<AudioSource>();
         image = GetComponent<Image>();
         rect = GetComponent<RectTransform>();
