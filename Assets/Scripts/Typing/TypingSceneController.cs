@@ -11,9 +11,36 @@ public class TypingSceneController : MonoBehaviour
 
     [SerializeField] TMPro.TMP_Text timer;
     [SerializeField] TMPro.TMP_Text scoreUI;
+    [SerializeField]TMPro.TMP_Text hpUI;
     [SerializeField] BugWatcher bugWatcher;
 
     int _score = 0;
+
+    public int Score
+    {
+        get { return _score; }
+        set { 
+            _score = value;
+            scoreUI.text = "Score:" + _score.ToString();
+        }
+    }
+
+    public int _hp = 100;
+
+    public int HP
+    {
+        get { return _hp; }
+        set
+        {
+            _hp = value;
+            hpUI.text = "HP:" + _hp.ToString();
+
+            if (_hp <= 0)
+            {
+                OnHPZero();
+            }
+        }
+    }
 
     public TypingSceneController Main {  get; private set; }
 
@@ -38,10 +65,11 @@ public class TypingSceneController : MonoBehaviour
         StartCoroutine(Bug());
         bugWatcher.OnDefeatBug += (score) =>
         {
-            _score += score;
-
-            scoreUI.text = _score.ToString();
+            Score += score;
         };
+
+        hpUI.text = "HP:" + _hp.ToString();
+        scoreUI.text = "Score:" + _score.ToString();
 
         yield return null;
         yield return GameLoop_Pattern1();
@@ -76,9 +104,22 @@ public class TypingSceneController : MonoBehaviour
         bool defeated = false;
         bool timeOver = false;
         word1.OnDefeated += () => defeated = true;
+        word1.OnDefeated += () =>
+        {
+            Score += word1.GetAllCharacterCount() * 20;
+        };
         word1.OnTimeOverCallBack += () => timeOver = true;
-        word1.OnTimerChangedCallBack += time => timer.text = string.Format("{0:F00}",time);
+        word1.OnTimerChangedCallBack += time => timer.text = "Timer:" + string.Format("{0:F00}",time);
         playerTyping.SetTypingWord(word1);
+        playerTyping.OnPlayerMissTypedCallBack += () =>
+        {
+            HP -= 1;
+        };
+
+        playerTyping.OnPlayerCorrectlyTypedCallBack += () =>
+        {
+            Score += 2;
+        };
 
         while (true)
         {
@@ -94,6 +135,8 @@ public class TypingSceneController : MonoBehaviour
             if (timeOver)
             {
                 //ダメージ処理
+                HP -= 5;
+
                 print("TimeOver");
             }
 
@@ -113,15 +156,15 @@ public class TypingSceneController : MonoBehaviour
         switch (useGlobalGameLevel ? GlobalGameLevel : GameLevel)
         {
             case GameLevel.Easy:
-                timer = 7;
+                timer = 9;
                 mul_wordLength = 1.2f;
                 break;
             case GameLevel.Normal:
-                timer = 5;
+                timer = 7;
                 mul_wordLength = 0.8f;
                 break;
             case GameLevel.Hard:
-                timer = 4;
+                timer = 5;
                 mul_wordLength = 0.75f;
                 break;
         }
@@ -153,6 +196,11 @@ public class TypingSceneController : MonoBehaviour
     public void SetGameLevel(GameLevel level)
     {
         GameLevel = level;
+    }
+
+    void OnHPZero()
+    {
+
     }
     
 }
