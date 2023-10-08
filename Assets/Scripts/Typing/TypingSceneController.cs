@@ -17,6 +17,8 @@ public class TypingSceneController : MonoBehaviour
 
     public TypingSceneController Main {  get; private set; }
 
+    public GameLevel GameLevel { get; set; } = GameLevel.Normal;
+
     int bugShowingCount = 0;
 
     IEnumerator Start()
@@ -99,7 +101,29 @@ public class TypingSceneController : MonoBehaviour
 
     float GetTimer(string word)
     {
-        return word.Length * 0.75f + 5;
+        //return word.Length * 0.75f + 5;
+
+        float timer = 0;
+
+        float mul_wordLength = 1;
+
+        switch (GameLevel)
+        {
+            case GameLevel.Easy:
+                timer = 7;
+                mul_wordLength = 1.2f;
+                break;
+            case GameLevel.Normal:
+                timer = 5;
+                mul_wordLength = 0.8f;
+                break;
+            case GameLevel.Hard:
+                timer = 4;
+                mul_wordLength = 0.75f;
+                break;
+        }
+
+        return timer + word.Length * mul_wordLength;
     }
 
     /// <summary>
@@ -122,4 +146,16 @@ public class TypingSceneController : MonoBehaviour
     {
         return library.RandomWord();    
     }
+    
+    public void SetGameLevel(GameLevel level)
+    {
+        GameLevel = level;
+    }
+    
 }
+public enum GameLevel
+    {
+        Easy,
+        Normal,
+        Hard
+    }
