@@ -75,6 +75,10 @@ public class Bug : MonoBehaviour
         StartCoroutine(BugAttack());
     }
 
+    /// <summary>
+    /// health‚ª0‚Ì‚Í‰Šú’l‚ªİ’è‚³‚ê‚é
+    /// </summary>
+    /// <param name="health"></param>
     public virtual void Initialize(int health)
     {
         if (health == 0)
