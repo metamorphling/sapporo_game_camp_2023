@@ -14,6 +14,12 @@ public class TypingSceneController : MonoBehaviour
     [SerializeField]TMPro.TMP_Text hpUI;
     [SerializeField] BugWatcher bugWatcher;
 
+    [SerializeField] AudioSource audioSource;
+    [SerializeField] AudioClip audioClip_correctTyping;
+    [SerializeField] AudioClip audioClip_missTyping;
+    [SerializeField] AudioClip audioClip__typing_winn;
+    [SerializeField] AudioClip audioClip_timeOver;
+
     int _score = 0;
 
     public int Score
@@ -103,22 +109,52 @@ public class TypingSceneController : MonoBehaviour
         //var word1 = wordFactory.CreateDefaultTypingWord(library.RandomWord(), Vector3.zero);
         bool defeated = false;
         bool timeOver = false;
-        word1.OnDefeated += () => defeated = true;
+
         word1.OnDefeated += () =>
         {
+            defeated = true;
             Score += word1.GetAllCharacterCount() * 20;
+            if (audioSource & audioClip__typing_winn)
+            {
+                audioSource.PlayOneShot(audioClip__typing_winn);
+            }
         };
-        word1.OnTimeOverCallBack += () => timeOver = true;
-        word1.OnTimerChangedCallBack += time => timer.text = "Timer:" + string.Format("{0:F00}",time);
+
+        word1.OnTimeOverCallBack += () =>
+        {
+            timeOver = true;
+
+            if (audioSource & audioClip_timeOver)
+            {
+                audioSource.PlayOneShot(audioClip_timeOver);
+            }
+        };
+
+        word1.OnTimerChangedCallBack += time =>
+        {
+            timer.text = "Timer:" + string.Format("{0:F00}", time);
+        };
+
         playerTyping.SetTypingWord(word1);
+
         playerTyping.OnPlayerMissTypedCallBack += () =>
         {
             HP -= 1;
+
+            if (audioSource & audioClip_missTyping)
+            {
+                audioSource.PlayOneShot(audioClip_missTyping);
+            }
         };
 
         playerTyping.OnPlayerCorrectlyTypedCallBack += () =>
         {
             Score += 2;
+
+            if (audioSource & audioClip_correctTyping)
+            {
+                audioSource.PlayOneShot(audioClip_correctTyping);
+            }
         };
 
         while (true)
