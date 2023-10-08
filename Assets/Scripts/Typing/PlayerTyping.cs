@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using DG.Tweening;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -17,6 +18,8 @@ public class PlayerTyping : MonoBehaviour
     public event System.Action OnPlayerMissTypedCallBack;
 
     Queue<char> inputKeysQueue = new(0);
+
+    private Tweener scrambleAnimation;
 
     bool IsPlayerStopped = false;
     IEnumerator Start()
@@ -123,11 +126,16 @@ public class PlayerTyping : MonoBehaviour
     public void StopTypingInput()
     {
         IsPlayerStopped = true;
+        string temp = word.GetTextComponent().text;
+        scrambleAnimation = DOTween.To(() => word.GetTextComponent().text, x => word.GetTextComponent().text = x, temp, 999)
+            .SetOptions(true, ScrambleMode.All);
         inputKeysQueue.Clear();
     }
 
     public void ReStartTypingInput()
     {
+        if (scrambleAnimation != null && scrambleAnimation.active)
+            scrambleAnimation.Kill(true);
         IsPlayerStopped = false;
     }
 }

@@ -14,4 +14,9 @@ public abstract class TypingWordBase : MonoBehaviour
 
     public abstract void Stop();
     public abstract void Restart();
+
+    public virtual TMPro.TMP_Text GetTextComponent()
+    {
+        return null;
+    }
 }

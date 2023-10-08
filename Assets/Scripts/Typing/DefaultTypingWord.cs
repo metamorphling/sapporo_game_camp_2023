@@ -136,4 +136,9 @@ public class DefaultTypingWord : TypingWordBase
             StartCoroutine(timerCoroutine);
         }
     }
+
+    public override TMPro.TMP_Text GetTextComponent()
+    {
+        return text;
+    }
 }
