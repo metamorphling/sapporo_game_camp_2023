@@ -548,9 +548,9 @@ GameObject:
   - component: {fileID: 340664428}
   - component: {fileID: 340664427}
   - component: {fileID: 340664426}
-  - component: {fileID: 340664425}
   - component: {fileID: 340664424}
   - component: {fileID: 340664423}
+  - component: {fileID: 340664429}
   m_Layer: 5
   m_Name: HighBugTyphoon
   m_TagString: Untagged
@@ -692,9 +692,9 @@ MonoBehaviour:
     callback:
       m_PersistentCalls:
         m_Calls:
-        - m_Target: {fileID: 340664425}
-          m_TargetAssemblyTypeName: BugTyphoon, Assembly-CSharp
-          m_MethodName: OnClickBag2
+        - m_Target: {fileID: 340664429}
+          m_TargetAssemblyTypeName: HighBugTyphoon, Assembly-CSharp
+          m_MethodName: OnClickBag4
           m_Mode: 1
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
@@ -704,35 +704,6 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
---- !u!114 &340664425
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 340664421}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8027aa3ad10c76f4aa0f8d887e885d36, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  attackSE: {fileID: 8300000, guid: 0a9a1c70afdae9b4d88af95c33c9666d, type: 3}
-  spawnSE: {fileID: 8300000, guid: 964e5908297ff1f4693b3ca28749c33a, type: 3}
-  breakSE: {fileID: 8300000, guid: 2df867995280275408131d60e44856da, type: 3}
-  killSE: {fileID: 8300000, guid: d22dcdab561075f4fa09e6904094f225, type: 3}
-  damageSE: {fileID: 8300000, guid: 71430b19e945028448d97398ddf0ae0a, type: 3}
-  health: 0
-  damage: 30
-  attackSpeed: 7
-  score: 500
-  isDead: 1
-  lose: {fileID: 21300000, guid: b3c204483271ae945b236ed976732198, type: 3}
-  attack: {fileID: 21300000, guid: 6f60f8c9ee23ea74c9129169683972a7, type: 3}
-  normal: {fileID: 21300000, guid: 4a8311b0ccbbb4648bdd13fb0a9641c6, type: 3}
-  text: {fileID: 266767020}
-  speedText: {fileID: 1784093727}
-  startHealth: 8
-  canvasRect: {fileID: 1332832864}
 --- !u!61 &340664426
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -816,6 +787,35 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 340664421}
   m_CullTransparentMesh: 1
+--- !u!114 &340664429
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 340664421}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3042bf846e0562d4d9b6f2e7f06aa09a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  attackSE: {fileID: 8300000, guid: 0a9a1c70afdae9b4d88af95c33c9666d, type: 3}
+  spawnSE: {fileID: 8300000, guid: 964e5908297ff1f4693b3ca28749c33a, type: 3}
+  breakSE: {fileID: 8300000, guid: 2df867995280275408131d60e44856da, type: 3}
+  killSE: {fileID: 8300000, guid: d22dcdab561075f4fa09e6904094f225, type: 3}
+  damageSE: {fileID: 8300000, guid: 71430b19e945028448d97398ddf0ae0a, type: 3}
+  health: 0
+  damage: 50
+  attackSpeed: 7
+  score: 600
+  isDead: 1
+  lose: {fileID: 0}
+  attack: {fileID: 0}
+  normal: {fileID: 0}
+  text: {fileID: 0}
+  speedText: {fileID: 0}
+  startHealth: 10
+  canvasRect: {fileID: 0}
 --- !u!1 &356249043
 GameObject:
   m_ObjectHideFlags: 0
@@ -1411,7 +1411,7 @@ MonoBehaviour:
   - {fileID: 561500832}
   - {fileID: 1764069561}
   - {fileID: 82827973}
-  - {fileID: 340664425}
+  - {fileID: 0}
 --- !u!1 &1235634273
 GameObject:
   m_ObjectHideFlags: 0

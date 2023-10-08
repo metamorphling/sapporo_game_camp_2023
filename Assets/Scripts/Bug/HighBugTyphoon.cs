@@ -55,7 +55,7 @@ public class HighBugTyphoon : Bug
         }
     }
 
-    public void OnClickBag2()   //マウスをクリックしたときの処理
+    public void OnClickBag4()   //マウスをクリックしたときの処理
     {
         //クリック時のマウスの初期位置とターゲットの現在の角度を取得
         if (Input.GetKeyDown(KeyCode.Mouse0))
