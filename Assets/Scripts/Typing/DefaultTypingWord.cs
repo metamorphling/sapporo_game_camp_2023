@@ -65,7 +65,7 @@ public class DefaultTypingWord : TypingWordBase
             text.text = text.text.Remove(text.firstVisibleCharacter, 1);
             textCount--;
 
-            if (textCount == 0)
+            if (textCount <= 0)
             {
                 OnDefeated?.Invoke();
             }

@@ -135,7 +135,7 @@ public class TypingSceneController : MonoBehaviour
 
         word1.OnTimerChangedCallBack += time =>
         {
-            timer.text = "Timer:" + string.Format("{0:F00}", time);
+            timer.text = string.Format("{0:F4}", time);
         };
 
         playerTyping.SetTypingWord(word1);
