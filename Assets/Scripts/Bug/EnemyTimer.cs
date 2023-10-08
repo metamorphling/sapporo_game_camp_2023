@@ -1,21 +1,40 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class EnemyTimer : MonoBehaviour
 {
-    float bug1Time; //ƒoƒO‚ªo‚é‚Ü‚Å‚ÌŠÔ
+    float bug1Time; //ãƒã‚°ãŒå‡ºã‚‹ã¾ã§ã®æ™‚é–“
     public Bug[] bugs;
+    private bool blockStart = true;
+
     void Start()
     {
-        
+        StartCoroutine(DelayStart());
+    }
+
+    IEnumerator DelayStart()
+    {
+        yield return new WaitForSeconds(4);
+        blockStart = false;
     }
 
     void Update()
     {
-        //5•bŒã‚©‚ÂƒoƒO‚ªo‚Ä‚È‚¯‚ê‚ÎƒoƒO‚ğo‚·
-        if(bug1Time >= 5)
+        if (blockStart)
+            return;
+
+        foreach (var bug in bugs)
+        {
+            if (!bug.isDead)
+            {
+                bug1Time = 0;
+                return;
+            }
+        }
+
+        //5ç§’å¾Œã‹ã¤ãƒã‚°ãŒå‡ºã¦ãªã‘ã‚Œã°ãƒã‚°ã‚’å‡ºã™
+        if (bug1Time >= 5)
         {
             int b = bugs.Length;
             int r = Random.Range(0, b);
@@ -31,7 +50,7 @@ public class EnemyTimer : MonoBehaviour
             }
             bug1Time = 0;
         }
-        //ƒoƒO‚ªo‚Ä‚È‚©‚Á‚½‚ç
+        //ãƒã‚°ãŒå‡ºã¦ãªã‹ã£ãŸã‚‰
         else
         {
             bug1Time += Time.deltaTime;

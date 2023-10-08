@@ -6,20 +6,20 @@ using UnityEngine.UI;
 
 public class BugTyphoon : Bug
 {
-    Vector2 pos;   //ƒ}ƒEƒXƒNƒŠƒbƒN‚ÌˆÊ’u
-    Quaternion rotation;//ƒNƒŠƒbƒN‚µ‚½‚Æ‚«‚Ìƒ^[ƒQƒbƒg‚ÌŠp“x
+    Vector2 pos;   //ãƒã‚¦ã‚¹ã‚¯ãƒªãƒƒã‚¯æ™‚ã®ä½ç½®
+    Quaternion rotation;//ã‚¯ãƒªãƒƒã‚¯ã—ãŸã¨ãã®ã‚¿ãƒ¼ã‚²ãƒƒãƒˆã®è§’åº¦
 
-    Vector2 vecA;       //ƒ^[ƒQƒbƒg’†S‚©‚ç‚Ìpos‚Ö‚ÌƒxƒNƒgƒ‹
-    Vector2 vecB;       //ƒ^[ƒQƒbƒg‚Ì’†S‚©‚çŒ»ƒ}ƒEƒXˆÊ’u‚Ö‚ÌƒxƒNƒgƒ‹
+    Vector2 vecA;       //ã‚¿ãƒ¼ã‚²ãƒƒãƒˆä¸­å¿ƒã‹ã‚‰ã®posã¸ã®ãƒ™ã‚¯ãƒˆãƒ«
+    Vector2 vecB;       //ã‚¿ãƒ¼ã‚²ãƒƒãƒˆã®ä¸­å¿ƒã‹ã‚‰ç¾ãƒã‚¦ã‚¹ä½ç½®ã¸ã®ãƒ™ã‚¯ãƒˆãƒ«
 
-    float angle;        //vecA‚ÆvecB‚Ì‚È‚·Šp“x
-    float prevAngle;        //vecA‚ÆvecB‚Ì‚È‚·Šp“x
+    float angle;        //vecAã¨vecBã®ãªã™è§’åº¦
+    float prevAngle;        //vecAã¨vecBã®ãªã™è§’åº¦
     float angleDiff;
-    Vector3 AxB;        //vecA‚ÆvecB‚ÌŠOÏ
-    Vector3 prevAxB;        //vecA‚ÆvecB‚ÌŠOÏ
+    Vector3 AxB;        //vecAã¨vecBã®å¤–ç©
+    Vector3 prevAxB;        //vecAã¨vecBã®å¤–ç©
 
     public RectTransform canvasRect;
-    bool Drag;          //ƒhƒ‰ƒbƒO’†‚Ìƒtƒ‰ƒO
+    bool Drag;          //ãƒ‰ãƒ©ãƒƒã‚°ä¸­ã®ãƒ•ãƒ©ã‚°
     bool needLeft;
 
     void Start()
@@ -37,13 +37,13 @@ public class BugTyphoon : Bug
         }
         else
         {
-            pos = WorldPos();//ƒ}ƒEƒXˆÊ’u‚ğƒ[ƒ‹ƒhÀ•W‚Åæ“¾
+            pos = WorldPos();//ãƒã‚¦ã‚¹ä½ç½®ã‚’ãƒ¯ãƒ¼ãƒ«ãƒ‰åº§æ¨™ã§å–å¾—
         }
     }
 
-    public void OnClickBag2()   //ƒ}ƒEƒX‚ğƒNƒŠƒbƒN‚µ‚½‚Æ‚«‚Ìˆ—
+    public void OnClickBag2()   //ãƒã‚¦ã‚¹ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ãŸã¨ãã®å‡¦ç†
     {
-        //ƒNƒŠƒbƒN‚Ìƒ}ƒEƒX‚Ì‰ŠúˆÊ’u‚Æƒ^[ƒQƒbƒg‚ÌŒ»İ‚ÌŠp“x‚ğæ“¾
+        //ã‚¯ãƒªãƒƒã‚¯æ™‚ã®ãƒã‚¦ã‚¹ã®åˆæœŸä½ç½®ã¨ã‚¿ãƒ¼ã‚²ãƒƒãƒˆã®ç¾åœ¨ã®è§’åº¦ã‚’å–å¾—
         if (Input.GetKeyDown(KeyCode.Mouse0))
         {
             rotation = this.transform.rotation;
@@ -51,9 +51,9 @@ public class BugTyphoon : Bug
         }
     }
 
-    void Rotate()   //ƒhƒ‰ƒbƒO’†‚Ì“®‚«
+    void Rotate()   //ãƒ‰ãƒ©ãƒƒã‚°ä¸­ã®å‹•ã
     {
-        //ƒhƒ‰ƒbƒO‚ª‰ğœ‚³‚ê‚½‚çƒtƒ‰ƒO‚ğOFF
+        //ãƒ‰ãƒ©ãƒƒã‚°ãŒè§£é™¤ã•ã‚ŒãŸã‚‰ãƒ•ãƒ©ã‚°ã‚’OFF
         if (Input.GetKeyUp(KeyCode.Mouse0))
         {
             Drag = false;
@@ -61,24 +61,24 @@ public class BugTyphoon : Bug
         }
         Vector3 trPos = this.transform.position;
 
-        //ƒ}ƒEƒX‚Ì‰ŠúˆÊ’u‚ÌƒxƒNƒgƒ‹‚ğ‹‚ß‚é
+        //ãƒã‚¦ã‚¹ã®åˆæœŸä½ç½®ã®ãƒ™ã‚¯ãƒˆãƒ«ã‚’æ±‚ã‚ã‚‹
         vecA = (pos - (Vector2)trPos).normalized;
 
-        //Œ»ƒ}ƒEƒXˆÊ’u‚ÌƒxƒNƒgƒ‹‚ğ‹‚ß‚é
+        //ç¾ãƒã‚¦ã‚¹ä½ç½®ã®ãƒ™ã‚¯ãƒˆãƒ«ã‚’æ±‚ã‚ã‚‹
         vecB = (WorldPos() - trPos).normalized;
 
-        //ƒ}ƒEƒX‚Ì‰ŠúˆÊ’u‚ÆŒ»ƒ}ƒEƒXˆÊ’u‚©‚çŠp“x‚ÆŠOÏ‚ğ‹‚ß‚é
-        angle = Vector2.Angle(vecA, vecB);  //Šp“x‚ğŒvZ
-        AxB = Vector3.Cross(vecA, vecB);    //ŠOÏ‚ğŒvZ
+        //ãƒã‚¦ã‚¹ã®åˆæœŸä½ç½®ã¨ç¾ãƒã‚¦ã‚¹ä½ç½®ã‹ã‚‰è§’åº¦ã¨å¤–ç©ã‚’æ±‚ã‚ã‚‹
+        angle = Vector2.Angle(vecA, vecB);  //è§’åº¦ã‚’è¨ˆç®—
+        AxB = Vector3.Cross(vecA, vecB);    //å¤–ç©ã‚’è¨ˆç®—
 
         bool isLeft = ((AxB.z > 0) && (prevAngle < angle)) || ((AxB.z < 0) && (prevAngle > angle));
         if (isLeft != needLeft) 
             return;
 
-        //ŠOÏ‚Ìz¬•ª‚Ì³•‰‚Å‰ñ“]•ûŒü‚ğŒˆ‚ß‚é
+        //å¤–ç©ã®zæˆåˆ†ã®æ­£è² ã§å›è»¢æ–¹å‘ã‚’æ±ºã‚ã‚‹
         if (AxB.z > 0)
         {
-            //‰ŠúˆÊ’u‚Æ‚ÌŠ|‚¯Z‚Å‘Š‘Î“I‚É‰ñ“]‚³‚¹‚é
+            //åˆæœŸä½ç½®ã¨ã®æ›ã‘ç®—ã§ç›¸å¯¾çš„ã«å›è»¢ã•ã›ã‚‹
             this.transform.localRotation = rotation * Quaternion.Euler(0, 0, angle);
         }
         else
@@ -105,7 +105,7 @@ public class BugTyphoon : Bug
         return RectTransformUtility.WorldToScreenPoint(Camera.main, Camera.main.ScreenToWorldPoint(Input.mousePosition));
     }
 
-    override public void Initialize(int health)
+    public override void Initialize(int health)
     {
         image = GetComponent<Image>();
         rect = GetComponent<RectTransform>();
@@ -122,5 +122,6 @@ public class BugTyphoon : Bug
         posX = r1;
         posY = r2;
         rect.localPosition = new Vector3(posX, posY, 0);
+        isDead = false;
     }
 }

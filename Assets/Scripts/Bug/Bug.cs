@@ -17,10 +17,13 @@ public class Bug : MonoBehaviour
     protected float posY;
     protected float r1;
     protected float r2;
-    protected int health = 0;
+    public int health = 0;
+    [HideInInspector]
+    public bool isDead = true;
 
     protected IEnumerator BugLoose()
     {
+        isDead = true;
         if (health <= 0)
         {
             health = 0;
@@ -30,7 +33,7 @@ public class Bug : MonoBehaviour
         this.gameObject.SetActive(false);
     }
 
-    virtual public void Initialize(int health)
+    public virtual void Initialize(int health)
     {
         image = GetComponent<Image>();
         rect = GetComponent<RectTransform>();
@@ -43,5 +46,6 @@ public class Bug : MonoBehaviour
         posX = r1;
         posY = r2;
         rect.localPosition = new Vector3(posX, posY, 0);
+        isDead = false;
     }
 }
