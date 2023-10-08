@@ -42,13 +42,14 @@ public class TypingSceneController : MonoBehaviour
         set
         {
             _hp = value;
-            hpUI.text = _hp.ToString();
-            hpAnimator.SetFloat("HP", _hp / (float)maxHP);
-
             if (_hp <= 0)
             {
                 OnHPZero();
+                _hp = 0;
             }
+
+            hpUI.text = _hp.ToString();
+            hpAnimator.SetFloat("HP", _hp / (float)maxHP);
         }
     }
 
@@ -73,10 +74,6 @@ public class TypingSceneController : MonoBehaviour
         }
 
         StartCoroutine(Bug());
-        bugWatcher.OnDefeatBug += (score) =>
-        {
-            Score += score;
-        };
 
         maxHP = HP;
 

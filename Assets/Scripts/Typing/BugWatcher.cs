@@ -16,7 +16,7 @@ public class BugWatcher : MonoBehaviour
 
     public int bugShowingCount = 0;
 
-    public event System.Action<int> OnDefeatBug;
+    //public event System.Action<int> OnDefeatBug;
 
     IEnumerator Start()
     {
@@ -88,7 +88,7 @@ public class BugWatcher : MonoBehaviour
                     bugShowingCount += obj.gameObject.activeSelf ? 1 : -1;
                     if (!obj.gameObject.activeSelf)
                     {
-                        OnDefeatBug?.Invoke(_Bugs[obj].score);
+                        //OnDefeatBug?.Invoke(_Bugs[obj].score);
                     }
                 }
 

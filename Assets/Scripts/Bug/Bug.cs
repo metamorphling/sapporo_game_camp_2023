@@ -36,6 +36,11 @@ public class Bug : MonoBehaviour
 
     protected IEnumerator BugLoose()
     {
+        if (isDead)
+        {
+            yield break;
+        }
+
         transform.DOShakeRotation(0.3f, 100, 100);
         isDead = true;
         health = 0;
@@ -43,7 +48,14 @@ public class Bug : MonoBehaviour
         AS.PlayOneShot(killSE);
         yield return new WaitForSeconds(1);
         AS.PlayOneShot(breakSE);
-        transform.DOScale(0, 0.2f).SetEase(Ease.InSine).OnComplete(() => { this.gameObject.SetActive(false); });
+        transform.DOScale(0, 0.2f).SetEase(Ease.InSine).OnComplete(() =>
+        {
+            this.gameObject.SetActive(false);
+            if(TypingSceneController.Main)
+            {
+                TypingSceneController.Main.Score += score;
+            }
+        });
     }
 
     protected IEnumerator BugAttack()
