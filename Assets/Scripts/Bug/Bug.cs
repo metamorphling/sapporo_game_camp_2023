@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using DG.Tweening;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -35,13 +36,14 @@ public class Bug : MonoBehaviour
 
     protected IEnumerator BugLoose()
     {
+        transform.DOShakeRotation(0.3f, 100, 100);
         isDead = true;
         health = 0;
         image.sprite = lose;
         AS.PlayOneShot(killSE);
         yield return new WaitForSeconds(1);
         AS.PlayOneShot(breakSE);
-        this.gameObject.SetActive(false);
+        transform.DOScale(0, 0.2f).SetEase(Ease.InSine).OnComplete(() => { this.gameObject.SetActive(false); });
     }
 
     protected IEnumerator BugAttack()
@@ -70,6 +72,13 @@ public class Bug : MonoBehaviour
     protected void Attack()
     {
         Debug.Log("Attack! " + name  + " Damage! " + damage);
+        transform.DOScale(4, 0.2f).SetEase(Ease.OutSine).OnComplete(() =>
+        {
+            transform.DOShakePosition(0.4f, 50, 40).OnComplete(() =>
+            {
+                transform.DOScale(0, 0.4f).SetEase(Ease.InSine);
+            });
+        });
         if (TypingSceneController.Main)
             TypingSceneController.Main.HP -= damage;
         StartCoroutine(BugAttack());
@@ -98,5 +107,8 @@ public class Bug : MonoBehaviour
         rect.localPosition = new Vector3(posX, posY, 0);
         AttackTimer = attackSpeed;
         isDead = false;
+        transform.localScale = new Vector3(1, 1, 1);
+        transform.rotation = Quaternion.Euler(0,0,0);
+        transform.DOShakePosition(AttackTimer, 20, 30);
     }
 }

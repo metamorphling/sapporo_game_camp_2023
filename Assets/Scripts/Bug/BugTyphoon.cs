@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using DG.Tweening;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
@@ -146,5 +147,7 @@ public class BugTyphoon : Bug
         rect.localPosition = new Vector3(posX, posY, 0);
         AttackTimer = attackSpeed;
         isDead = false;
+        transform.localScale = new Vector3(1, 1, 1);
+        transform.DOShakePosition(AttackTimer, 20, 30);
     }
 }
