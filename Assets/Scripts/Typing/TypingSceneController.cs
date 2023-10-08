@@ -169,7 +169,7 @@ public class TypingSceneController : MonoBehaviour
 
             word1.WordSpawn();
 
-            yield return new WaitUntil(() => defeated|timeOver);
+            yield return new WaitUntil(() => (defeated | timeOver) & bugShowingCount == 0);
 
             if (timeOver)
             {
