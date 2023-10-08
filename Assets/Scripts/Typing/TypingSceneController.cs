@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class TypingSceneController : MonoBehaviour
 {
@@ -199,7 +200,7 @@ public class TypingSceneController : MonoBehaviour
 
     void OnHPZero()
     {
-
+        SceneManager.LoadScene("GameOver", LoadSceneMode.Single);
     }
     
 }

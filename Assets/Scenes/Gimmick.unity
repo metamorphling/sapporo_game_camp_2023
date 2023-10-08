@@ -805,7 +805,7 @@ MonoBehaviour:
   killSE: {fileID: 8300000, guid: d22dcdab561075f4fa09e6904094f225, type: 3}
   damageSE: {fileID: 8300000, guid: 71430b19e945028448d97398ddf0ae0a, type: 3}
   health: 0
-  damage: 50
+  damage: 25
   attackSpeed: 7
   score: 600
   isDead: 1
@@ -1411,7 +1411,7 @@ MonoBehaviour:
   - {fileID: 561500832}
   - {fileID: 1764069561}
   - {fileID: 82827973}
-  - {fileID: 0}
+  - {fileID: 340664429}
 --- !u!1 &1235634273
 GameObject:
   m_ObjectHideFlags: 0

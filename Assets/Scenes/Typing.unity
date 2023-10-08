@@ -780,7 +780,7 @@ MonoBehaviour:
   scoreUI: {fileID: 554422981}
   hpUI: {fileID: 1713207107}
   bugWatcher: {fileID: 779115949}
-  _hp: 100
+  _hp: 50
   GameLevel: 1
   useGlobalGameLevel: 1
 --- !u!1 &1593809859
