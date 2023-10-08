@@ -29,8 +29,22 @@ public class BugTyphoon : Bug
 
     void Update()
     {
-        if (health <= 0)
+        if (isDead)
             return;
+
+        {   // ATTACK
+            AttackTimer -= Time.deltaTime;
+            speedText.text = AttackTimer.ToString();
+            if (AttackTimer < 0)
+            {
+                isDead = true;
+                AttackTimer = 0;
+                speedText.text = AttackTimer.ToString();
+                Attack();
+                return;
+            }
+        }
+
         if (Drag)
         {
             Rotate();
@@ -98,7 +112,7 @@ public class BugTyphoon : Bug
             {
                 StartCoroutine(BugLoose());
             }
-            text.text = needLeft ? "Left " + health.ToString() : "Right " + health.ToString();
+            text.text = needLeft ? "LEFT " + health.ToString() : "RIGHT " + health.ToString();
         }
         prevAngle = angle;
         prevAxB = AxB;
@@ -120,7 +134,7 @@ public class BugTyphoon : Bug
 
         this.health = health;
         needLeft = Random.Range(0, 2) == 1 ? true : false;
-        text.text = needLeft ? "Left " + health.ToString() : "Right " + health.ToString();
+        text.text = needLeft ? "LEFT " + health.ToString() : "RIGHT " + health.ToString();
         this.gameObject.SetActive(true);
         AS.PlayOneShot(spawnSE);
         r1 = Random.Range(-800, 800);
@@ -128,6 +142,7 @@ public class BugTyphoon : Bug
         posX = r1;
         posY = r2;
         rect.localPosition = new Vector3(posX, posY, 0);
+        AttackTimer = attackSpeed;
         isDead = false;
     }
 }

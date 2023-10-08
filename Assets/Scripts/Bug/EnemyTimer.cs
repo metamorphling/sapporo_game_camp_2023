@@ -15,7 +15,7 @@ public class EnemyTimer : MonoBehaviour
 
     IEnumerator DelayStart()
     {
-        yield return new WaitForSeconds(4);
+        yield return new WaitForSeconds(10);
         blockStart = false;
     }
 

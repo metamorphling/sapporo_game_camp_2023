@@ -10,22 +10,25 @@ public class Bug : MonoBehaviour
     [SerializeField] protected AudioClip breakSE;
     [SerializeField] protected AudioClip killSE;
     [SerializeField] protected AudioClip damageSE;
+    public int health = 0;
+    public int damage;
+    public int attackSpeed;
+    public int score;
+    [HideInInspector]
+    public bool isDead = true;
     [SerializeField] protected Sprite lose;
     [SerializeField] protected Sprite attack;
     [SerializeField] protected Sprite normal;
     [SerializeField] protected TMPro.TMP_Text text;
     protected AudioSource AS;
-    public int damage;
-    public int score;
+    [SerializeField] protected TMPro.TMP_Text speedText;
     protected Image image;
     protected RectTransform rect;
     protected float posX;
     protected float posY;
     protected float r1;
     protected float r2;
-    public int health = 0;
-    [HideInInspector]
-    public bool isDead = true;
+    protected float AttackTimer;
 
     protected IEnumerator BugLoose()
     {
@@ -36,6 +39,35 @@ public class Bug : MonoBehaviour
         yield return new WaitForSeconds(1);
         AS.PlayOneShot(breakSE);
         this.gameObject.SetActive(false);
+    }
+
+    protected IEnumerator BugAttack()
+    {
+        isDead = true;
+        image.sprite = attack;
+        yield return new WaitForSeconds(1);
+        this.gameObject.SetActive(false);
+    }
+
+    void Update()
+    {
+        if (isDead)
+            return;
+        AttackTimer -= Time.deltaTime;
+        speedText.text = AttackTimer.ToString();
+        if (AttackTimer < 0)
+        {
+            isDead = true;
+            AttackTimer = 0; 
+            speedText.text = AttackTimer.ToString();
+            Attack();
+        }
+    }
+
+    protected void Attack()
+    {
+        Debug.Log("Attack! " + name  + " Damage! " + damage);
+        StartCoroutine(BugAttack());
     }
 
     public virtual void Initialize(int health)
@@ -53,6 +85,7 @@ public class Bug : MonoBehaviour
         posX = r1;
         posY = r2;
         rect.localPosition = new Vector3(posX, posY, 0);
+        AttackTimer = attackSpeed;
         isDead = false;
     }
 }
